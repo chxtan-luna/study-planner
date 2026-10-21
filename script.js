@@ -146,7 +146,7 @@ function render() {
   const overdue = tasks.filter(t => statusOf(t) === "over").length;
   document.getElementById("summary").textContent =
     tasks.length === 0
-      ? "Must finish task."
+      ? "No task, free time."
       : open + (open === 1 ? " task open" : " tasks open") +
         (overdue ? ", " + overdue + " overdue" : ", none overdue");
 
