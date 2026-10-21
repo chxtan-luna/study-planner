@@ -1,0 +1,213 @@
+/* ===== COLORS (light mode) ===== */
+:root {
+  --bg: #F2F4F8;        /* page background */
+  --surface: #FFFFFF;   /* cards and form */
+  --ink: #14213D;       /* main text */
+  --muted: #5B6478;     /* secondary text */
+  --line: #D9DEE8;      /* borders */
+  --accent: #2B4EFF;    /* buttons, "later" tasks */
+  --over: #D62839;      /* overdue */
+  --soon: #C77700;      /* due within 2 days */
+  --done: #2E9E5B;      /* finished */
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  color-scheme: light;
+}
+
+/* ===== COLORS (dark mode, follows the device setting) ===== */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1424;
+    --surface: #181F36;
+    --ink: #EEF1FA;
+    --muted: #98A1B8;
+    --line: #2A3354;
+    --accent: #7C93FF;
+    --over: #FF6B78;
+    --soon: #FFB84D;
+    --done: #4CC38A;
+    color-scheme: dark;
+  }
+}
+
+/* ===== BASICS ===== */
+* { box-sizing: border-box; }
+
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Figtree", system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 28px 16px 48px;
+}
+
+h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 4px;
+}
+
+#summary {
+  margin: 0 0 24px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* ===== ADD-TASK FORM ===== */
+#add-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+#add-form .wide { grid-column: 1 / -1; }
+
+label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+input[type="text"],
+input[type="date"] {
+  width: 100%;
+  font: inherit;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+/* Visible outline when using the keyboard */
+input:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+#add-form button {
+  grid-column: 1 / -1;
+  font: inherit;
+  font-weight: 800;
+  color: #fff;
+  background: var(--accent);
+  border: 0;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+}
+
+/* In dark mode the accent is light, so the button text turns dark */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) #add-form button { color: #0F1424; }
+}
+
+/* ===== TASK LIST ===== */
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+li.task {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 8px solid var(--line);   /* the colored urgency strip */
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+/* The strip color changes with the task's status */
+li.task.over  { border-left-color: var(--over); }
+li.task.soon  { border-left-color: var(--soon); }
+li.task.later { border-left-color: var(--accent); }
+li.task.done  { border-left-color: var(--done); opacity: 0.65; }
+
+li.task input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--done);
+  flex: none;
+}
+
+.info { flex: 1; min-width: 0; }
+
+.title { font-weight: 600; overflow-wrap: anywhere; }
+li.done .title { text-decoration: line-through; }
+
+.meta { font-size: 0.85rem; color: var(--muted); }
+
+.badge {
+  font-size: 0.8rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.over .badge  { color: var(--over); }
+.soon .badge  { color: var(--soon); }
+.later .badge { color: var(--accent); }
+.done .badge  { color: var(--done); }
+
+.del {
+  font: inherit;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.del:hover { color: var(--over); }
+
+/* ===== EMPTY STATE ===== */
+#empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 32px 8px;
+  border: 2px dashed var(--line);
+  border-radius: 12px;
+}
+
+/* ===== WATERMARK ===== */
+.watermark {
+  position: fixed;
+  right: 14px;
+  bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  opacity: 0.6;
+  pointer-events: none;   /* clicks pass through it */
+  user-select: none;      /* can't be highlighted */
+}
+
+/* ===== PHONES ===== */
+@media (max-width: 480px) {
+  #add-form { grid-template-columns: 1fr; }
+  li.task { flex-wrap: wrap; }
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Study Planner</title>
+
+  <!-- Font: Figtree from Google Fonts (falls back to system-ui offline) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;800&display=swap">
+
+  <!-- Styling lives in its own file -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Study planner</h1>
+
+    <!-- JavaScript fills this in: "3 tasks open, 1 overdue" -->
+    <p id="summary"></p>
+
+    <!-- Form for adding a new task -->
+    <form id="add-form">
+      <div class="wide">
+        <label for="title">Task</label>
+        <input type="text" id="title" placeholder="e.g. Finish the Effective Communication report" required maxlength="120">
+      </div>
+
+      <div>
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" placeholder="e.g. Communication" maxlength="40">
+      </div>
+
+      <div>
+        <label for="due">Deadline</label>
+        <input type="date" id="due" required>
+      </div>
+
+      <button type="submit">Add task</button>
+    </form>
+
+    <!-- JavaScript builds one <li> per task inside this list -->
+    <ul id="list"></ul>
+
+    <!-- Shown by JavaScript when there are no tasks -->
+    <div id="empty" hidden>No tasks yet. Add your first deadline above.</div>
+  </main>
+
+  <!-- Group watermark, fixed in the bottom-right corner (styled in style.css) -->
+  <div class="watermark" aria-hidden="true">@G11B8Service</div>
+
+  <!-- Logic lives in its own file. "defer" waits until the page is loaded. -->
+  <script src="script.js" defer></script>
+</body>
+</html>
