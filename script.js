@@ -146,7 +146,7 @@ function render() {
   const overdue = tasks.filter(t => statusOf(t) === "over").length;
   document.getElementById("summary").textContent =
     tasks.length === 0
-      ? "Plan your deadlines in one place."
+      ? "Must finish task."
       : open + (open === 1 ? " task open" : " tasks open") +
         (overdue ? ", " + overdue + " overdue" : ", none overdue");
 
