@@ -23,12 +23,19 @@
     <form id="add-form">
       <div class="wide">
         <label for="title">Task</label>
-        <input type="text" id="title" placeholder="e.g. Roleplay on LCS" required maxlength="120">
+        <input type="text" id="title" placeholder="e.g. Finish the Effective Communication report" required maxlength="120">
       </div>
 
       <div>
         <label for="subject">Subject</label>
-        <input type="text" id="subject" placeholder="e.g. Life and Career Skills" maxlength="40">
+        <select id="subject" required>
+          <option value="" disabled selected>Choose a subject</option>
+          <option>General Science</option>
+          <option>Life &amp; Career Skills</option>
+          <option>Effective Communications</option>
+          <option>Pag-aaral sa Kasaysayan at Lipunang Pilipino</option>
+          <option>General Mathematics</option>
+        </select>
       </div>
 
       <div>
